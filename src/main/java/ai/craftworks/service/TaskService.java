@@ -52,8 +52,8 @@ public class TaskService {
     }
 
     public void executeTask(Task task) {
-        logger.info("Execute task: " + task.getTitle());
         taskDao.setTaskExecuted(task.getId());
+        logger.info(String.format("Execute task: '%s'", task.getTitle()));
     }
 
     public Task getTask(String id) {
