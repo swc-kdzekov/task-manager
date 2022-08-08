@@ -1,13 +1,10 @@
 # Task manager simulator
 
-A simple task manager simulator created as REST API service with scheduler.<br />
-The service is written to work with Postgres and other compatible sql dialects.<br />
-The database connection configuration is in **application.properties**<br />
-The current implementation works with Postgres 14.4.<br />
+A simple task manager simulator created as REST API service with scheduler. The service is written to work with Postgres and other sql compatible databases. The database connection configuration is in **application.properties** file. The current implementation was built on Postgres 14.4.<br />
 The Url of the service is: *http(s)://{host}:{port}/tasks<br />*
 <br />
 ### Prerequisites
-Create a table using the following sql script<br />
+Create a table in a Postgres database using the following sql script<br />
 ```
 CREATE TABLE IF NOT EXISTS "Tasks"."Tasks"
 (
