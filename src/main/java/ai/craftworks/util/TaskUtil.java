@@ -1,18 +1,18 @@
-package ai.craftworks.service;
+package ai.craftworks.util;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
+import ai.craftworks.exceptions.DateFormatException;
 import ai.craftworks.model.RequestTask;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 
-@Component
 public class TaskUtil {
 
-    public String buildUpdateClause(RequestTask requestTask) {
+    public static String buildUpdateClause(RequestTask requestTask) {
         StringBuilder sb = new StringBuilder();
 
-        //Validate date format
         if (StringUtils.isNotEmpty(requestTask.getDueDate())) {
             sb.append("\"dueDate\"='" + requestTask.getDueDate() + "', ");
         }
@@ -33,4 +33,21 @@ public class TaskUtil {
 
         return sb.toString();
     }
+
+    public static void validateTaskRequest(RequestTask requestTask){
+        if (StringUtils.isNotEmpty(requestTask.getDueDate())) {
+            validateDate(requestTask.getDueDate());
+        }
+    }
+
+    private static void validateDate(String date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(date.trim());
+        } catch (ParseException pe) {
+            throw new DateFormatException("Incorrect date format. It should comply with: [yyyy-MM-dd]!");
+        }
+    }
+
 }
